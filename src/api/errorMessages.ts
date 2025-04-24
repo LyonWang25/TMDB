@@ -1,0 +1,17 @@
+export const TMDB_ERROR_MESSAGES: Record<number, string> = {
+  2: "Invalid service. Please check the API path.",
+  3: "Authentication failed. You don't have permission to access this service.",
+  4: "Invalid format. Please use the correct request format.",
+  5: "Invalid parameters. Please check your input.",
+  6: "Invalid ID. The requested item was not found.",
+  7: "Invalid API key. Please verify your TMDB key.",
+  9: "Service temporarily offline. Please try again later.",
+  10: "API key suspended. Please contact TMDB support.",
+  22: "Invalid page. Page numbers must be between 1 and 500.",
+  24: "Request timed out. Please try again.",
+  25: "Too many requests. Please slow down and try again later.",
+  34: "The requested resource was not found.",
+  44: "The ID provided is invalid.",
+  45: "Your account or access has been suspended.",
+  46: "API is under maintenance. Please try again shortly.",
+};
