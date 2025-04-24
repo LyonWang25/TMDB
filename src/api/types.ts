@@ -28,7 +28,6 @@ export interface Review {
   created_at: string;
 }
 
-
 export interface MovieSummary {
   id: number;
   title: string;

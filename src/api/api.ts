@@ -1,11 +1,13 @@
 import { createGetRequest } from "./api-client";
-import { MovieSearchResult,
+import {
+  MovieSearchResult,
   MovieDetailResult,
   CreditsResponse,
   VideoListResponse,
   ReviewListResponse,
   GenreListResponse,
-  MovieListResponse, } from "./types";
+  MovieListResponse,
+} from "./types";
 
 export const API = {
   searchMovies: createGetRequest<MovieSearchResult>("/search/movie"),
