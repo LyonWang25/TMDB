@@ -1,4 +1,3 @@
-// src/api/api.ts
 import { createGetRequest } from "./api-client";
 import { MovieSearchResult,
   MovieDetailResult,

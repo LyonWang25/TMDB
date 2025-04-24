@@ -1,4 +1,3 @@
-// src/api/api-client.ts
 import axios, { AxiosRequestConfig, AxiosResponse } from "axios";
 import { TMDB_ERROR_MESSAGES } from "./errorMessages";
 import { AxiosError } from "axios";
