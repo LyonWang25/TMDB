@@ -5,8 +5,9 @@ import { AxiosError } from "axios";
 const client = axios.create({
   baseURL: "https://api.themoviedb.org/3",
   timeout: 10000,
-  params: {
-    api_key: import.meta.env.VITE_TMDB_API_KEY,
+  headers: {
+    accept: "application/json",
+    Authorization: `Bearer ${import.meta.env.VITE_TMDB_BEARER_TOKEN}`,
   },
 });
 
