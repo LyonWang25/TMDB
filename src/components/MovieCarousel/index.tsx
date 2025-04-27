@@ -17,6 +17,7 @@ const CLONE_COUNT = Math.floor(VISIBLE_CARDS / 2);
 
 const MovieCarousel = ({ movies }: MovieCarouselProps) => {
   const glideRef = useRef<HTMLDivElement>(null);
+  console.log(glideRef.current);
   const [glideInstance, setGlideInstance] = useState<Glide | null>(null);
   const [currentCenterIndex, setCurrentCenterIndex] = useState(CLONE_COUNT);
 
@@ -27,7 +28,7 @@ const MovieCarousel = ({ movies }: MovieCarouselProps) => {
   }, [movies]);
 
   useEffect(() => {
-    if (!glideRef.current) return;
+    if (!glideRef.current || extendedMovies.length === 0) return;
 
     const glide = new Glide(glideRef.current, {
       type: "carousel",
@@ -55,7 +56,8 @@ const MovieCarousel = ({ movies }: MovieCarouselProps) => {
     return () => {
       glide.destroy();
     };
-  }, []);
+  }, [extendedMovies]);
+  
   const handleNext = () => {
     glideInstance?.go(">");
   };
@@ -90,7 +92,7 @@ const MovieCarousel = ({ movies }: MovieCarouselProps) => {
       )}
       {/* mask */}
       <div className="pointer-events-none absolute inset-0 -z-10 bg-black opacity-50"></div>
-
+      {/* movie carousel */}
       <div ref={glideRef} className="glide py-14">
         <div className="glide__track" data-glide-el="track">
           <ul className="glide__slides">

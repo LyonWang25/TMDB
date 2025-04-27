@@ -1,4 +1,6 @@
 import { getImageUrl } from "../utils/image";
+import { useNavigate } from "react-router-dom";
+import { slugify } from "../utils/slugify";
 
 interface LandingBannerProps {
   backdropPath: string;
@@ -6,6 +8,7 @@ interface LandingBannerProps {
   description: string;
   onAddToWatchlist?: () => void;
   onMoreInfo?: () => void;
+  movieId: number;
 }
 
 const LandingBanner = ({
@@ -13,9 +16,16 @@ const LandingBanner = ({
   title,
   description,
   onAddToWatchlist,
-  onMoreInfo,
+  movieId,
 }: LandingBannerProps) => {
   const backgroundImage = getImageUrl(backdropPath);
+  const navigate = useNavigate();
+  const movieUrl = `/movie/${slugify(title)}-${movieId}`;
+
+    const handleMoreInfo = () => {
+      navigate(movieUrl);
+    };
+
   return (
     <section className="relative w-full min-h-[500px] text-white overflow-hidden">
       {/* background image layer */}
@@ -45,7 +55,7 @@ const LandingBanner = ({
             <button
               className="text-sm md:text-base bg-white text-black hover:bg-gray-200 font-bold py-2 px-6 rounded-full transition cursor-pointer"
               type="button"
-              onClick={onMoreInfo}
+              onClick={handleMoreInfo}
             >
               Movie Info
             </button>

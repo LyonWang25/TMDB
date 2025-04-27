@@ -1,8 +1,12 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 const WatchlistPage = () => {
   return (
-    <div>WatchlistPage</div>
+    <div>
+      WatchlistPage
+      <Link to="/">Home</Link>
+      </div>
   )
 }
 

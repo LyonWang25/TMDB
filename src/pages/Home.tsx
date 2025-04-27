@@ -2,15 +2,16 @@ import { useEffect, useState } from "react";
 import { API } from "../api/api";
 import { MovieSummary } from "../api/types";
 import LandingCarousel from "../components/LandingCarousel";
-import Header from "../components/Header";
 import MovieCarousel from "../components/MovieCarousel/index";
+import { useLayoutLoadingStore } from "../stores/useLayoutLoadingStore";
 
 const Home = () => {
   const [nowPlayingMovies, setNowPlayingMovies] = useState<MovieSummary[]>([]);
   const [popularMovies, setPopularMovies] = useState<MovieSummary[]>([]);
-  const [loading, setLoading] = useState(true);
+  const { setLoading } = useLayoutLoadingStore();
 
 useEffect(() => {
+  setLoading(true);
   const fetchNowPlaying = API.getNowPlayingMovies();
   const fetchPopular = API.getPopularMovies();
   const fetchTopRated = API.getTopRatedMovies();
@@ -28,11 +29,8 @@ useEffect(() => {
     });
 }, []);
 
-  if (loading) return <p>Loading...</p>;
-
   return (
     <div className="relative z-0">
-      <Header />
       <LandingCarousel movies={nowPlayingMovies} />
       <MovieCarousel movies={popularMovies} />
     </div>

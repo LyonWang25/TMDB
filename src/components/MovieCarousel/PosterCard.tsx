@@ -2,6 +2,8 @@ import React, { useEffect, useRef, useState } from "react";
 import FavoriteButton from "./FavoriteButton";
 import { MovieSummary } from "../../api/types";
 import { getImageUrl } from "../../utils/image";
+import { Link } from "react-router-dom";
+import { slugify } from "../../utils/slugify";
 
 interface PosterCardProps {
   movie: MovieSummary;
@@ -11,23 +13,25 @@ const PosterCard = ({ movie }: PosterCardProps) => {
   const [isHovered, setIsHovered] = useState(false);
   const [isCenter, setIsCenter] = useState(false);
   const cardRef = useRef<HTMLDivElement>(null);
+  const movieUrl = `/movie/${slugify(movie.title)}-${movie.id}`;
+
   useEffect(() => {
+    const findSlideElement = (el: HTMLElement | null): HTMLElement | null => {
+      if (!el) return null;
+      if (el.classList.contains("glide__slide")) return el;
+      return findSlideElement(el.parentElement);
+    };
+    const slideElement = findSlideElement(cardRef.current);
+    if (!slideElement) return;
     const observer = new MutationObserver(() => {
-      if (cardRef.current) {
-        setIsCenter(
-          cardRef.current.parentElement?.classList.contains(
-            "glide__slide--active"
-          ) ?? false
-        );
-      }
+      setIsCenter(slideElement.classList.contains("glide__slide--active"));
     });
 
-    if (cardRef.current?.parentElement) {
-      observer.observe(cardRef.current.parentElement, {
-        attributes: true,
-        attributeFilter: ["class"],
-      });
-    }
+
+   observer.observe(slideElement, {
+     attributes: true,
+     attributeFilter: ["class"],
+   });
 
     return () => {
       observer.disconnect();
@@ -35,6 +39,7 @@ const PosterCard = ({ movie }: PosterCardProps) => {
   }, []);
 
   return (
+    <Link to={movieUrl}>
     <div
       ref={cardRef}
       className={`cursor-pointer transform flex flex-col items-center ${
@@ -79,6 +84,7 @@ const PosterCard = ({ movie }: PosterCardProps) => {
         <FavoriteButton movieId={movie.id} />
       </div>
     </div>
+    </Link>
   );
 };
 
