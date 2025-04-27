@@ -28,4 +28,6 @@ export const API = {
     createGetRequest<MovieListResponse>("/movie/now_playing")({ page }),
   getUpcomingMovies: (page = 1) =>
     createGetRequest<MovieListResponse>("/movie/upcoming")({ page }),
+  getTopRatedMovies: (page = 1) =>
+    createGetRequest<MovieListResponse>("/movie/top_rated")({ page }),
 };

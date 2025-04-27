@@ -32,11 +32,11 @@ const LandingBanner = ({
       {/* content layer*/}
       <div className="relative z-20 max-w-6xl h-full px-6 py-10">
         <div className="flex flex-col gap-2 justify-end min-h-[400px] md:min-h-[500px]">
-          <h1 className="text-xl md:text-4xl font-bold mb-4">{title}</h1>
+          <h1 className="text-2xl md:text-4xl font-bold mb-4">{title}</h1>
           <p className="text-sm md:text-lg mb-6">{description}</p>
           <div className="flex gap-4 justify-center sm:justify-start">
             <button
-              className="text-sm md:text-base bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-6 rounded-full transition cursor-pointer"
+              className="text-sm md:text-base bg-red-700 hover:bg-red-600 text-white font-bold py-2 px-6 rounded-full transition cursor-pointer"
               type="button"
               onClick={onAddToWatchlist}
             >
