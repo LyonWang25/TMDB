@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { slugify } from "../utils/slugify";
 import { MovieSummary } from "../api/types";
 import { useWatchlistStore } from "../stores/useWatchListStore";
+import { CiImageOff } from "react-icons/ci";
 
 interface LandingBannerProps {
   backdropPath: string;
@@ -20,7 +21,6 @@ const LandingBanner = ({
   movieSummary,
 }: LandingBannerProps) => {
   console.log(movieId);
-  const backgroundImage = getImageUrl(backdropPath);
   const navigate = useNavigate();
   const movieUrl = `/movie/${slugify(title)}-${movieId}`;
   const { addToWatchlist, isInWatchlist } = useWatchlistStore();
@@ -38,12 +38,19 @@ const LandingBanner = ({
   return (
     <section className="relative w-full min-h-[500px] text-white overflow-hidden">
       {/* background image layer */}
-      <div
-        className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-        style={{
-          backgroundImage: `url(${backgroundImage})`,
-        }}
-      />
+      {backdropPath ? (
+        <div
+          className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+          style={{
+            backgroundImage: `url(${getImageUrl(backdropPath)})`,
+          }}
+        />
+      ) : (
+        <div className="absolute inset-0 bg-black flex flex-col items-center justify-center pb-2">
+          <CiImageOff className="text-6xl text-gray-600" />
+          <p className="text-gray-400">No Image Found</p>
+        </div>
+      )}
 
       {/* mask layer */}
       <div className="absolute inset-0 bg-black/50 z-10"></div>
@@ -60,9 +67,7 @@ const LandingBanner = ({
               onClick={handleAddToWatchlist}
               disabled={isInWatchlist(movieId)}
             >
-              {isInWatchlist(movieId)
-                ? "In Watchlist"
-                : "Add to Watchlist"}
+              {isInWatchlist(movieId) ? "In Watchlist" : "Add to Watchlist"}
             </button>
             <button
               className="text-sm md:text-base bg-white text-black hover:bg-gray-200 font-bold py-2 px-6 rounded-full transition cursor-pointer"
