@@ -1,7 +1,7 @@
 // src/components/MovieSearch.tsx
 import { useEffect, useState, useRef } from "react";
 import { API } from "../api/api";
-import PosterCard from "./MovieCarousel/PosterCard"; // 注意 PosterCard 放的位置
+import PosterCard from "./PosterCard/PosterCard"; 
 import { MovieSummary } from "../api/types";
 interface MovieSearchProps {
   onQueryChange: (query: string) => void;
@@ -20,7 +20,7 @@ const MovieSearch = ({ onQueryChange }: MovieSearchProps) => {
   const hasSearchQuery = query.trim().length > 0;
 
   useEffect(() => {
-    onQueryChange(query); // ➡️ 每次 query 改變，通知外面 (Home)
+    onQueryChange(query);
 
     if (!hasSearchQuery) {
       setResults([]);
@@ -84,7 +84,7 @@ const MovieSearch = ({ onQueryChange }: MovieSearchProps) => {
         )}
 
         {hasSearchQuery && results.length === 0 && !loading && !error && (
-          <div className="text-gray-400 mt-4">找不到符合的電影</div>
+          <div className="text-gray-400 mt-4">No Movies Found</div>
         )}
 
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-6">
@@ -93,7 +93,7 @@ const MovieSearch = ({ onQueryChange }: MovieSearchProps) => {
           ))}
         </div>
 
-        {/* 空白區域觸發無限滾動 */}
+        {/* empty space to trigger infinite scroll */}
         {hasSearchQuery && <div ref={loadMoreRef} className="h-10" />}
       </div>
     </div>

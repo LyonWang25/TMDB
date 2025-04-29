@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import Glide from "@glidejs/glide";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
-import PosterCard from "./PosterCard";
+import PosterCard from "../PosterCard/PosterCard";
 import { MovieSummary } from "../../api/types";
 
 import "@glidejs/glide/dist/css/glide.core.min.css";
@@ -56,7 +56,7 @@ const MovieCarousel = ({ movies }: MovieCarouselProps) => {
       glide.destroy();
     };
   }, [extendedMovies]);
-  
+
   const handleNext = () => {
     glideInstance?.go(">");
   };
@@ -68,7 +68,8 @@ const MovieCarousel = ({ movies }: MovieCarouselProps) => {
   return (
     <div className="relative w-full overflow-hidden py-8">
       <div className="mx-auto w-full px-6 px-4">
-        <header className="flex flex-wrap justify-between gap-x-12 border-b-2 pb-2 pt-8"
+        <header
+          className="flex flex-wrap justify-between gap-x-12 border-b-2 pb-2 pt-8"
           style={{
             borderColor: "#94a6ab",
           }}
@@ -97,7 +98,7 @@ const MovieCarousel = ({ movies }: MovieCarouselProps) => {
           <ul className="glide__slides">
             {extendedMovies.map((movie, i) => (
               <li key={i} className="glide__slide flex justify-center">
-                <PosterCard movie={movie} />
+                <PosterCard movie={movie} isCenter={i === currentCenterIndex} />
               </li>
             ))}
           </ul>

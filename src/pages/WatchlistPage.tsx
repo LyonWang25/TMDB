@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useWatchlistStore } from "../stores/useWatchListStore";
-import PosterCard from "../components/MovieCarousel/PosterCard";
+import PosterCard from "../components/PosterCard/PosterCard";
 import { FaTrash } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import { slugify } from "../utils/slugify";

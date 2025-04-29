@@ -5,7 +5,7 @@ import LandingCarousel from "../components/LandingCarousel";
 import MovieCarousel from "../components/MovieCarousel";
 import { useLayoutLoadingStore } from "../stores/useLayoutLoadingStore";
 import { useSearchStore } from "../stores/useSearchStore";
-import PosterCard from "../components/MovieCarousel/PosterCard";
+import PosterCard from "../components/PosterCard/PosterCard";
 
 const Home = () => {
   const [nowPlayingMovies, setNowPlayingMovies] = useState<MovieSummary[]>([]);

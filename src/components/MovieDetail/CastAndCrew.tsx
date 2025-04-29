@@ -1,4 +1,3 @@
-// src/components/MovieDetailPage/CastAndCrew.tsx
 import { CreditResponse } from "../../api/types";
 import ProfilePlaceholder from "../../assets/Default_pfp.svg";
 

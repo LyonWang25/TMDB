@@ -1,6 +1,6 @@
 // FavoriteButton.tsx
-import { useWatchlistStore } from "../../stores/useWatchListStore";
-import { MovieSummary } from "../../api/types";
+import { useWatchlistStore } from "../stores/useWatchListStore";
+import { MovieSummary } from "../api/types";
 
 const FavoriteButton = ({ movie }: { movie: MovieSummary }) => {
   const { toggleFavorite, isFavorite } = useWatchlistStore();
