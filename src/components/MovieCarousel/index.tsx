@@ -17,7 +17,6 @@ const CLONE_COUNT = Math.floor(VISIBLE_CARDS / 2);
 
 const MovieCarousel = ({ movies }: MovieCarouselProps) => {
   const glideRef = useRef<HTMLDivElement>(null);
-  console.log(glideRef.current);
   const [glideInstance, setGlideInstance] = useState<Glide | null>(null);
   const [currentCenterIndex, setCurrentCenterIndex] = useState(CLONE_COUNT);
 

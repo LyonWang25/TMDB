@@ -18,6 +18,7 @@ const LandingBanner = ({
   onAddToWatchlist,
   movieId,
 }: LandingBannerProps) => {
+  console.log(movieId);
   const backgroundImage = getImageUrl(backdropPath);
   const navigate = useNavigate();
   const movieUrl = `/movie/${slugify(title)}-${movieId}`;

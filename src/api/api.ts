@@ -2,11 +2,11 @@ import { createGetRequest } from "./api-client";
 import {
   MovieSearchResult,
   MovieDetailResult,
-  CreditsResponse,
+  CreditResponse,
   VideoListResponse,
-  ReviewListResponse,
   GenreListResponse,
   MovieListResponse,
+  ReviewResponse,
 } from "./types";
 
 export const API = {
@@ -16,11 +16,11 @@ export const API = {
       append_to_response: "videos,credits,reviews",
     }),
   getMovieCredits: (id: number) =>
-    createGetRequest<CreditsResponse>(`/movie/${id}/credits`)(),
+    createGetRequest<CreditResponse>(`/movie/${id}/credits`)(),
   getMovieVideos: (id: number) =>
     createGetRequest<VideoListResponse>(`/movie/${id}/videos`)(),
   getMovieReviews: (id: number, page = 1) =>
-    createGetRequest<ReviewListResponse>(`/movie/${id}/reviews`)({ page }),
+    createGetRequest<ReviewResponse>(`/movie/${id}/reviews`)({ page }),
   getGenres: createGetRequest<GenreListResponse>("/genre/movie/list"),
   getPopularMovies: (page = 1) =>
     createGetRequest<MovieListResponse>("/movie/popular")({ page }),

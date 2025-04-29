@@ -61,6 +61,7 @@ const LandingCarousel = ({ movies }: { movies: MovieSummary[] }) => {
         {movies.map((movie, idx) => (
           <div key={idx} className="w-full flex-shrink-0">
             <LandingBanner
+              movieId={movie.id}
               backdropPath={movie.backdrop_path ?? ""}
               title={movie.title}
               description={movie.overview.slice(0, 250) + "..."}
