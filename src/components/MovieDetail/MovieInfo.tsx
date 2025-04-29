@@ -1,0 +1,48 @@
+interface MovieInfoProps {
+  title: string;
+  runtime: number;
+  adult: boolean;
+  releaseDate: string;
+  overview: string;
+}
+
+const MovieInfo = ({
+  title,
+  runtime,
+  adult,
+  releaseDate,
+  overview,
+}: MovieInfoProps) => {
+  const rating = adult ? "R" : "PG";
+
+  return (
+    <>
+      {/* Title */}
+      <div className="p-6">
+        <h1 className="text-3xl font-bold">{title}</h1>
+      </div>
+
+      {/* Basic Info & Overview */}
+      <div className="flex flex-col md:flex-row justify-between gap-8 p-6">
+        <div className="space-y-4 md:w-1/2">
+          <p>
+            <strong>Runtime:</strong> {runtime} min
+          </p>
+          <p>
+            <strong>Rated:</strong> {rating}
+          </p>
+          <p>
+            <strong>Release Date:</strong> {releaseDate}
+          </p>
+        </div>
+
+        <div className="md:w-1/2">
+          <h2 className="text-xl font-bold mb-2">Overview</h2>
+          <p className="text-gray-300">{overview}</p>
+        </div>
+      </div>
+    </>
+  );
+};
+
+export default MovieInfo;
