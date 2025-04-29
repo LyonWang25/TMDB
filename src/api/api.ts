@@ -10,7 +10,8 @@ import {
 } from "./types";
 
 export const API = {
-  searchMovies: createGetRequest<MovieSearchResult>("/search/movie"),
+  searchMovies: (query: string, page = 1) =>
+  createGetRequest<MovieSearchResult>("/search/movie")({ query, page }),
   getMovieDetail: (id: number) =>
     createGetRequest<MovieDetailResult>(`/movie/${id}`)({
       append_to_response: "videos,credits,reviews",

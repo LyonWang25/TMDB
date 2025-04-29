@@ -1,31 +1,39 @@
 import { getImageUrl } from "../utils/image";
 import { useNavigate } from "react-router-dom";
 import { slugify } from "../utils/slugify";
+import { MovieSummary } from "../api/types";
+import { useWatchlistStore } from "../stores/useWatchListStore";
 
 interface LandingBannerProps {
   backdropPath: string;
   title: string;
   description: string;
-  onAddToWatchlist?: () => void;
-  onMoreInfo?: () => void;
   movieId: number;
+  movieSummary: MovieSummary;
 }
 
 const LandingBanner = ({
   backdropPath,
   title,
   description,
-  onAddToWatchlist,
   movieId,
+  movieSummary,
 }: LandingBannerProps) => {
   console.log(movieId);
   const backgroundImage = getImageUrl(backdropPath);
   const navigate = useNavigate();
   const movieUrl = `/movie/${slugify(title)}-${movieId}`;
+  const { addToWatchlist, isInWatchlist } = useWatchlistStore();
 
-    const handleMoreInfo = () => {
-      navigate(movieUrl);
-    };
+  const handleAddToWatchlist = () => {
+    if (movieSummary) {
+      addToWatchlist(movieSummary);
+    }
+  };
+
+  const handleMoreInfo = () => {
+    navigate(movieUrl);
+  };
 
   return (
     <section className="relative w-full min-h-[500px] text-white overflow-hidden">
@@ -49,9 +57,12 @@ const LandingBanner = ({
             <button
               className="text-sm md:text-base bg-red-700 hover:bg-red-600 text-white font-bold py-2 px-6 rounded-full transition cursor-pointer"
               type="button"
-              onClick={onAddToWatchlist}
+              onClick={handleAddToWatchlist}
+              disabled={isInWatchlist(movieId)}
             >
-              Add to Watchlist
+              {isInWatchlist(movieId)
+                ? "In Watchlist"
+                : "Add to Watchlist"}
             </button>
             <button
               className="text-sm md:text-base bg-white text-black hover:bg-gray-200 font-bold py-2 px-6 rounded-full transition cursor-pointer"

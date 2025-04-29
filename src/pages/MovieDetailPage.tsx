@@ -5,6 +5,7 @@ import { Video, MovieDetailResult, CreditResponse, Review } from "../api/types";
 import { useLayoutLoadingStore } from "../stores/useLayoutLoadingStore";
 import ProfilePlaceholder from "../assets/Default_pfp.svg";
 import { shortDescription } from "../utils/shortDescription";
+import { useSearchStore } from "../stores/useSearchStore";
 
 const MovieDetailPage = () => {
   const { slugId } = useParams<{ slugId: string }>();
@@ -21,6 +22,11 @@ const MovieDetailPage = () => {
    const [expandedMap, setExpandedMap] = useState<{ [key: string]: boolean }>(
      {}
    );
+  const clearSearchQuery = useSearchStore((state) => state.clearSearchQuery);
+
+  useEffect(() => {
+    clearSearchQuery();
+  }, [clearSearchQuery]);
 
   useEffect(() => {
     if (!id) {
@@ -136,45 +142,49 @@ const MovieDetailPage = () => {
       <div className="p-6">
         <h2 className="text-2xl font-bold mb-6">Audience Reviews</h2>
 
-        {reviews.slice(0, 3).map((review) => {
-          const isExpanded = expandedMap[review.id] ?? false;
-          const { content, isTruncated } = shortDescription(
-            review.content,
-            200
-          );
+        {reviews.length === 0 ? (
+          <p className="text-gray-400 text-lg">No reviews found</p>
+        ) : (
+          reviews.slice(0, 3).map((review) => {
+            const isExpanded = expandedMap[review.id] ?? false;
+            const { content, isTruncated } = shortDescription(
+              review.content,
+              200
+            );
 
-          return (
-            <div key={review.id} className="border-b border-gray-700 pb-4">
-              <div className="flex justify-between items-center mb-2">
-                <p className="text-md font-bold">{review.author}</p>
-                {review.author_details.rating !== null && (
-                  <p className="text-yellow-400">
-                    {review.author_details.rating} / 10
-                  </p>
+            return (
+              <div key={review.id} className="border-b border-gray-700 pb-4">
+                <div className="flex justify-between items-center mb-2">
+                  <p className="text-md font-bold">{review.author}</p>
+                  {review.author_details.rating !== null && (
+                    <p className="text-yellow-400">
+                      {review.author_details.rating} / 10
+                    </p>
+                  )}
+                </div>
+                <p className="text-gray-300 text-sm mb-2">
+                  {new Date(review.created_at).toLocaleDateString()}
+                </p>
+                <p className="text-gray-200">
+                  {isExpanded ? review.content : content}
+                </p>
+                {isTruncated && (
+                  <button
+                    onClick={() =>
+                      setExpandedMap((prev) => ({
+                        ...prev,
+                        [review.id]: !isExpanded,
+                      }))
+                    }
+                    className="mt-1 text-blue-400 hover:underline text-sm"
+                  >
+                    {isExpanded ? "Show less" : "Read more"}
+                  </button>
                 )}
               </div>
-              <p className="text-gray-300 text-sm mb-2">
-                {new Date(review.created_at).toLocaleDateString()}
-              </p>
-              <p className="text-gray-200">
-                {isExpanded ? review.content : content}
-              </p>
-              {isTruncated && (
-                <button
-                  onClick={() =>
-                    setExpandedMap((prev) => ({
-                      ...prev,
-                      [review.id]: !isExpanded,
-                    }))
-                  }
-                  className="mt-1 text-blue-400 hover:underline text-sm"
-                >
-                  {isExpanded ? "Show less" : "Read more"}
-                </button>
-              )}
-            </div>
-          );
-        })}
+            );
+          })
+        )}
       </div>
 
       <div className="p-6">
@@ -200,8 +210,8 @@ const MovieDetailPage = () => {
 
         {/* Crew */}
         <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
-          {crewList.map((crew) => (
-            <div key={crew.id} className="text-center">
+          {crewList.map((crew, idx) => (
+            <div key={`${crew.id}-${idx}`} className="text-center">
               <img
                 src={
                   crew.profile_path

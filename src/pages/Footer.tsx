@@ -10,7 +10,7 @@ const Footer = () => {
         <img src={AMCBetter} alt="AMC Better" />
       </div>
       <div>
-        <p className="justify-self-end px-6 py-2">
+        <p className="justify-self-end px-6 py-2 text-sm md:text-base">
           © 2025 AMC Theatres. All rights reserved.
         </p>
       </div>

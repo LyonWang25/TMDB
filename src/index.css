@@ -1,2 +1,6 @@
 @import "tailwindcss";
 
+.holder_text::placeholder {
+  color: #fff;
+}
+

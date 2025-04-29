@@ -65,8 +65,7 @@ const LandingCarousel = ({ movies }: { movies: MovieSummary[] }) => {
               backdropPath={movie.backdrop_path ?? ""}
               title={movie.title}
               description={movie.overview.slice(0, 250) + "..."}
-              onAddToWatchlist={() => console.log("Add", movie.id)}
-              onMoreInfo={() => console.log("Info", movie.id)}
+              movieSummary={movie}
             />
           </div>
         ))}
