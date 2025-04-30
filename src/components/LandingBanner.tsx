@@ -20,7 +20,6 @@ const LandingBanner = ({
   movieId,
   movieSummary,
 }: LandingBannerProps) => {
-  console.log(movieId);
   const navigate = useNavigate();
   const movieUrl = `/movie/${slugify(title)}-${movieId}`;
   const { addToWatchlist, isInWatchlist } = useWatchlistStore();
