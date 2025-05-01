@@ -43,7 +43,7 @@ export async function handleApiResponse<T>(
   }
 }
 
-// 工廠函式封裝 GET
+//  GET
 export function createGetRequest<T>(path: string) {
   return (
     params?: Record<string, unknown>,

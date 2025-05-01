@@ -1,7 +1,7 @@
 import Header from '../components/Header'
 import { Outlet } from 'react-router-dom'
 import { useLayoutLoadingStore } from '../stores/useLayoutLoadingStore'
-import Footer from '../pages/Footer';
+import Footer from '../components/Footer';
 
 const Layout = () => {
   const { isLoading } = useLayoutLoadingStore();
