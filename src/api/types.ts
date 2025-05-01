@@ -39,6 +39,7 @@ export interface MovieSummary {
   vote_count: number;
   genre_ids: number[];
   adult: boolean;
+  addedAt: number;
 }
 
 export interface MovieSearchResult {

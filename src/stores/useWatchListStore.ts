@@ -21,7 +21,7 @@ export const useWatchlistStore = create<WatchlistStore>()(
       addToWatchlist: (movie) => {
         if (!get().watchlist.find((m) => m.id === movie.id)) {
           set((state) => ({
-            watchlist: [...state.watchlist, movie],
+            watchlist: [...state.watchlist, { ...movie, addedAt: Date.now() }],
           }));
         }
       },

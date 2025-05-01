@@ -19,12 +19,12 @@ const MovieInfo = ({
     <>
       {/* Title */}
       <div className="p-6">
-        <h1 className="text-3xl font-bold">{title}</h1>
+        <h1 className="text-2xl md:text-3xl font-bold">{title}</h1>
       </div>
 
       {/* Basic Info & Overview */}
       <div className="flex flex-col md:flex-row justify-between gap-8 p-6">
-        <div className="space-y-4 md:w-1/2">
+        <div className="text-l md:text-xl space-y-4 md:w-1/2">
           <p>
             <strong>Runtime:</strong> {runtime} min
           </p>
@@ -37,8 +37,8 @@ const MovieInfo = ({
         </div>
 
         <div className="md:w-1/2">
-          <h2 className="text-xl font-bold mb-2">Overview</h2>
-          <p className="text-gray-300">{overview}</p>
+          <h2 className="text-l md:text-xl font-bold mb-2">Overview</h2>
+          <p className="text-l md:text-xl text-gray-300">{overview}</p>
         </div>
       </div>
     </>

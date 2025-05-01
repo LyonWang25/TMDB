@@ -10,8 +10,11 @@ const WatchlistPage = () => {
   const { watchlist, removeFromWatchlist } = useWatchlistStore();
   const navigate = useNavigate();
   const [sortType, setSortType] = useState<
-    "default" | "release_date" | "rating"
-  >("default");
+    | "added_time(Old → New)"
+    | "release_date"
+    | "rating"
+    | "added_time(New → Old)"
+  >("added_time(Old → New)");
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -27,6 +30,12 @@ const WatchlistPage = () => {
     }
     if (sortType === "rating") {
       return b.vote_average - a.vote_average;
+    }
+    if (sortType === "added_time(Old → New)") {
+      return a.addedAt - b.addedAt;
+    }
+    if (sortType === "added_time(New → Old)") {
+      return b.addedAt - a.addedAt;
     }
     return 0;
   });
@@ -58,32 +67,41 @@ const WatchlistPage = () => {
 
   return (
     <div className="px-6 py-10 min-h-screen bg-black text-white">
-      <div className="flex flex-col md:flex-row md:justify-between items-center mb-6 gap-4">
+      <div className="flex flex-col md:flex-row md:justify-between mb-6 gap-4">
         <h1 className="text-2xl md:text-3xl font-bold">My Watchlist</h1>
+
+        <button
+          onClick={handlePickRandomMovie}
+          className="text-sm md:text-base bg-yellow-400 hover:bg-yellow-500 text-black px-4 py-2 rounded font-bold cursor-pointer"
+        >
+          🎲 Watch Lottery
+        </button>
 
         <div className="flex items-center gap-4">
           <select
             value={sortType}
             onChange={(e) =>
               setSortType(
-                e.target.value as "default" | "release_date" | "rating"
+                e.target.value as
+                  | "added_time(Old → New)"
+                  | "added_time(New → Old)"
+                  | "release_date"
+                  | "rating"
               )
             }
             className="text-sm md:text-base bg-gray-800 text-white p-2 rounded-md"
           >
-            <option value="default">Sort by Added Time</option>
+            <option value="added_time(Old → New)">
+              Sort by Added Time (Old → New)
+            </option>
+            <option value="added_time(New → Old)">
+              Sort by Added Time (New → Old)
+            </option>
             <option value="release_date">
               Sort by Release Date (New → Old)
             </option>
             <option value="rating">Sort by Rating (High → Low)</option>
           </select>
-
-          <button
-            onClick={handlePickRandomMovie}
-            className="text-sm md:text-base bg-yellow-400 hover:bg-yellow-500 text-black px-4 py-2 rounded font-bold"
-          >
-            🎲 Watch Lottery
-          </button>
         </div>
       </div>
 
