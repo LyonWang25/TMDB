@@ -1,9 +1,13 @@
+import { MovieSummary } from "../../api/types";
+import WatchListButton from "../WatchListButton";
+
 interface MovieInfoProps {
   title: string;
   runtime: number;
   adult: boolean;
   releaseDate: string;
   overview: string;
+  movie: MovieSummary;
 }
 
 const MovieInfo = ({
@@ -12,14 +16,16 @@ const MovieInfo = ({
   adult,
   releaseDate,
   overview,
+  movie,
 }: MovieInfoProps) => {
   const rating = adult ? "R" : "PG";
 
   return (
     <>
       {/* Title */}
-      <div className="p-6">
+      <div className="p-6 flex justify-between items-center">
         <h1 className="text-2xl md:text-3xl font-bold">{title}</h1>
+        <WatchListButton movie={movie} />
       </div>
 
       {/* Basic Info & Overview */}

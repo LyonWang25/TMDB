@@ -2,8 +2,8 @@ import { getImageUrl } from "../utils/image";
 import { useNavigate } from "react-router-dom";
 import { slugify } from "../utils/slugify";
 import { MovieSummary } from "../api/types";
-import { useWatchlistStore } from "../stores/useWatchListStore";
 import { CiImageOff } from "react-icons/ci";
+import WatchListButton from "./WatchListButton";
 
 interface LandingBannerProps {
   backdropPath: string;
@@ -22,13 +22,6 @@ const LandingBanner = ({
 }: LandingBannerProps) => {
   const navigate = useNavigate();
   const movieUrl = `/movie/${slugify(title)}-${movieId}`;
-  const { addToWatchlist, isInWatchlist } = useWatchlistStore();
-
-  const handleAddToWatchlist = () => {
-    if (movieSummary) {
-      addToWatchlist(movieSummary);
-    }
-  };
 
   const handleMoreInfo = () => {
     navigate(movieUrl);
@@ -60,14 +53,7 @@ const LandingBanner = ({
           <h1 className="text-2xl md:text-4xl font-bold mb-4">{title}</h1>
           <p className="text-sm md:text-lg mb-6">{description}</p>
           <div className="flex gap-4 justify-center sm:justify-start">
-            <button
-              className="text-sm md:text-base bg-red-700 hover:bg-red-600 text-white font-bold py-2 px-6 rounded-full transition cursor-pointer"
-              type="button"
-              onClick={handleAddToWatchlist}
-              disabled={isInWatchlist(movieId)}
-            >
-              {isInWatchlist(movieId) ? "In Watchlist" : "Add to Watchlist"}
-            </button>
+            <WatchListButton movie={movieSummary} />
             <button
               className="text-sm md:text-base bg-white text-black hover:bg-gray-200 font-bold py-2 px-6 rounded-full transition cursor-pointer"
               type="button"

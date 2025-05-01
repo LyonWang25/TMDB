@@ -13,6 +13,18 @@ describe("Movie Search", () => {
     cy.get("img").should("have.length.greaterThan", 0); 
   });
 
+  it("should load more results on scroll", () => {
+  cy.get("input[placeholder='Search movies...']").type("e");
+
+  cy.get("img").should("have.length.at.least", 20);
+
+  cy.scrollTo("bottom");
+
+  cy.wait(1000);
+
+  cy.get("img").should("have.length.greaterThan", 20);
+});
+
   it("should show 'No results' when searching gibberish", () => {
     cy.get("input[placeholder='Search movies...']").type("asdhfkasdjhf");
 

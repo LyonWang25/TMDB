@@ -10,6 +10,7 @@ import MovieInfo from "../components/MovieDetail/MovieInfo";
 import RatingSection from "../components/MovieDetail/RatingSection";
 import ReviewList from "../components/MovieDetail/ReviewList";
 import CastAndCrew from "../components/MovieDetail/CastAndCrew";
+import { convertToMovieSummary } from "../types/movie";
 
 const MovieDetailPage = () => {
   const { slugId } = useParams<{ slugId: string }>();
@@ -88,6 +89,7 @@ const MovieDetailPage = () => {
         adult={movieDetail.adult}
         releaseDate={movieDetail.release_date}
         overview={movieDetail.overview}
+        movie={convertToMovieSummary(movieDetail)}
       />
 
       {/* Rating */}
